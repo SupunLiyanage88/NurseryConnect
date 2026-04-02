@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct NurseryConnectApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NurseryConnectRootView()
         }
+        .modelContainer(for: [Child.self, DiaryEntry.self, Incident.self])
     }
 }
