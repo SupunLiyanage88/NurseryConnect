@@ -21,7 +21,7 @@ struct IncidentsListScreen: View {
         Group {
             if let child = selectedChild {
                 ScrollView {
-                    LazyVStack(alignment: .leading, spacing: 18) {
+                    LazyVStack(alignment: .leading, spacing: 16) {
                         headerView(for: child)
                         filterChipsView
 
@@ -74,12 +74,12 @@ struct IncidentsListScreen: View {
     
     private func headerView(for child: Child) -> some View {
         SurfaceCard(tint: .orange) {
-            VStack(alignment: .leading, spacing: 10) {
+            VStack(alignment: .leading, spacing: 14) {
                 HStack(alignment: .firstTextBaseline) {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("Incident overview")
-                            .font(.headline)
-                        Text("Safeguarding and parent acknowledgements for \(child.name)")
+                            .font(.headline.weight(.semibold))
+                        Text("Clear follow-up and acknowledgement for \(child.name)")
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                     }
@@ -95,7 +95,7 @@ struct IncidentsListScreen: View {
                         .clipShape(Capsule())
                 }
 
-                Text(selectedFilter == nil ? "Track every report in one place." : "Filtered to \(selectedFilter?.rawValue ?? "") reports.")
+                Text(selectedFilter == nil ? "Track every report in one place." : "Showing only \(selectedFilter?.rawValue ?? "") reports.")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }

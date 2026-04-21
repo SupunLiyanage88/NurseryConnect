@@ -9,15 +9,32 @@ import SwiftUI
 
 struct AppShellBackground: View {
     var body: some View {
-        LinearGradient(
-            colors: [
-                Color(uiColor: .systemBackground),
-                Color("PrimaryTeal").opacity(0.12),
-                Color(uiColor: .secondarySystemBackground)
-            ],
-            startPoint: .topLeading,
-            endPoint: .bottomTrailing
-        )
+        ZStack {
+            Color(uiColor: .systemGroupedBackground)
+
+            LinearGradient(
+                colors: [
+                    Color(uiColor: .systemBackground),
+                    Color("PrimaryTeal").opacity(0.10),
+                    Color.orange.opacity(0.06),
+                    Color(uiColor: .secondarySystemBackground)
+                ],
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+
+            Circle()
+                .fill(Color("PrimaryTeal").opacity(0.12))
+                .frame(width: 240, height: 240)
+                .blur(radius: 60)
+                .offset(x: 140, y: -260)
+
+            Circle()
+                .fill(Color.orange.opacity(0.10))
+                .frame(width: 180, height: 180)
+                .blur(radius: 50)
+                .offset(x: -140, y: 220)
+        }
         .ignoresSafeArea()
     }
 }
@@ -34,16 +51,18 @@ struct SectionHeaderView: View {
     }
 
     var body: some View {
-        HStack(alignment: .firstTextBaseline) {
-            VStack(alignment: .leading, spacing: 4) {
-                Text(title)
-                    .font(.headline)
-                    .fontWeight(.semibold)
+        HStack(alignment: .top, spacing: 12) {
+            VStack(alignment: .leading, spacing: 5) {
                 if let subtitle {
                     Text(subtitle)
-                        .font(.subheadline)
+                        .font(.caption.weight(.semibold))
+                        .textCase(.uppercase)
+                        .tracking(0.8)
                         .foregroundStyle(.secondary)
                 }
+
+                Text(title)
+                    .font(.headline.weight(.semibold))
             }
             Spacer(minLength: 12)
             if let trailing {
@@ -64,15 +83,15 @@ struct SurfaceCard<Content: View>: View {
 
     var body: some View {
         content()
-            .padding(16)
+            .padding(18)
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(.thinMaterial)
             .overlay(
                 RoundedRectangle(cornerRadius: 24, style: .continuous)
-                    .strokeBorder(tint.opacity(0.14), lineWidth: 1)
+                    .strokeBorder(tint.opacity(0.12), lineWidth: 1)
             )
-            .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
-            .shadow(color: .black.opacity(0.06), radius: 16, x: 0, y: 8)
+            .clipShape(RoundedRectangle(cornerRadius: 28, style: .continuous))
+            .shadow(color: .black.opacity(0.05), radius: 18, x: 0, y: 10)
     }
 }
 
@@ -84,11 +103,11 @@ struct FilterChip: View {
     var body: some View {
         Button(action: action) {
             Text(title)
-                .font(.subheadline.weight(.semibold))
+                .font(.caption.weight(.semibold))
                 .lineLimit(1)
                 .padding(.horizontal, 14)
-                .padding(.vertical, 9)
-                .background(isSelected ? Color("PrimaryTeal") : Color(uiColor: .secondarySystemBackground))
+                .padding(.vertical, 10)
+                .background(isSelected ? Color("PrimaryTeal") : Color(uiColor: .secondarySystemBackground).opacity(0.92))
                 .foregroundStyle(isSelected ? .white : .primary)
                 .clipShape(Capsule(style: .continuous))
                 .overlay(
@@ -107,37 +126,43 @@ struct ChildAvatarCard: View {
 
     var body: some View {
         Button(action: onTap) {
-            VStack(spacing: 10) {
+            VStack(spacing: 12) {
                 ZStack {
                     Circle()
                         .fill(
                             LinearGradient(
-                                colors: [Color("PrimaryTeal").opacity(0.20), Color("PrimaryTeal").opacity(0.06)],
+                                colors: [Color("PrimaryTeal").opacity(0.22), Color("PrimaryTeal").opacity(0.08)],
                                 startPoint: .topLeading,
                                 endPoint: .bottomTrailing
                             )
                         )
-                        .frame(width: 68, height: 68)
+                        .frame(width: 72, height: 72)
 
                     Image(systemName: child.profileImageName ?? "person.fill")
-                        .font(.system(size: 28, weight: .semibold))
+                        .font(.system(size: 30, weight: .semibold))
                         .foregroundStyle(isSelected ? Color("PrimaryTeal") : .secondary)
                 }
 
-                Text(child.name)
-                    .font(.footnote.weight(.semibold))
-                    .foregroundStyle(.primary)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.85)
+                VStack(spacing: 4) {
+                    Text(child.name)
+                        .font(.footnote.weight(.semibold))
+                        .foregroundStyle(.primary)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.85)
+
+                    Text(child.ageInYears == 1 ? "1 year" : "\(child.ageInYears) years")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
             }
-            .padding(12)
-            .frame(width: 112)
+            .padding(14)
+            .frame(width: 132)
             .background(.thinMaterial)
             .overlay(
                 RoundedRectangle(cornerRadius: 22, style: .continuous)
                     .strokeBorder(isSelected ? Color("PrimaryTeal") : Color.primary.opacity(0.08), lineWidth: isSelected ? 2 : 1)
             )
-            .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
+            .clipShape(RoundedRectangle(cornerRadius: 24, style: .continuous))
             .shadow(color: .black.opacity(isSelected ? 0.10 : 0.05), radius: 12, x: 0, y: 6)
         }
         .buttonStyle(.plain)
@@ -165,7 +190,7 @@ struct StatCard: View {
                         .font(.caption.weight(.semibold))
                         .foregroundStyle(.secondary)
                     Text(value)
-                        .font(.headline)
+                        .font(.title3.weight(.semibold))
                         .foregroundStyle(.primary)
                         .lineLimit(1)
                 }
@@ -196,7 +221,7 @@ struct HomeCard: View {
 
                     VStack(alignment: .leading, spacing: 3) {
                         Text(title)
-                            .font(.headline)
+                            .font(.headline.weight(.semibold))
                             .foregroundStyle(.primary)
                         Text(subtitle)
                             .font(.subheadline)
@@ -244,7 +269,7 @@ struct DetailCard: View {
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(.secondary)
                 Text(value)
-                    .font(.body)
+                    .font(.callout)
                     .foregroundStyle(.primary)
                     .fixedSize(horizontal: false, vertical: true)
             }
@@ -421,13 +446,13 @@ struct SuccessToast: View {
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 14)
-            .background(.ultraThinMaterial)
+            .background(.thinMaterial)
             .overlay(
                 RoundedRectangle(cornerRadius: 18, style: .continuous)
                     .strokeBorder(Color.primary.opacity(0.08), lineWidth: 1)
             )
-            .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
-            .shadow(color: .black.opacity(0.14), radius: 16, x: 0, y: 8)
+            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+            .shadow(color: .black.opacity(0.10), radius: 16, x: 0, y: 8)
             .padding(.horizontal, 20)
             .padding(.bottom, 28)
         }

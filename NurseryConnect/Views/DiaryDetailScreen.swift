@@ -12,7 +12,7 @@ struct DiaryDetailScreen: View {
     
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 18) {
+            VStack(alignment: .leading, spacing: 16) {
                 headerCard
 
                 sectionContent

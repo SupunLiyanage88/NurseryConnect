@@ -36,6 +36,9 @@ struct NurseryConnectRootView: View {
                 Label("Incidents", systemImage: "exclamationmark.shield.fill")
             }
         }
+        .tint(Color("PrimaryTeal"))
+        .toolbarBackground(.ultraThinMaterial, for: .tabBar)
+        .toolbarBackground(.visible, for: .tabBar)
         .environmentObject(dataManager)
         .environmentObject(appState)
         .task {
