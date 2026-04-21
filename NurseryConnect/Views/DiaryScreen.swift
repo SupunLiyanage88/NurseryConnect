@@ -21,7 +21,7 @@ struct DiaryScreen: View {
         Group {
             if let child = selectedChild {
                 ScrollView {
-                    LazyVStack(alignment: .leading, spacing: 18) {
+                    LazyVStack(alignment: .leading, spacing: 16) {
                         headerView(for: child)
                         filterChipsView
 
@@ -105,12 +105,12 @@ struct DiaryScreen: View {
 
     private func headerView(for child: Child) -> some View {
         SurfaceCard(tint: Color("PrimaryTeal")) {
-            VStack(alignment: .leading, spacing: 10) {
+            VStack(alignment: .leading, spacing: 14) {
                 HStack(alignment: .firstTextBaseline) {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("Daily diary")
-                            .font(.headline)
-                        Text("Updates for \(child.name)")
+                            .font(.headline.weight(.semibold))
+                        Text("A simple timeline for \(child.name)")
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                     }
@@ -126,7 +126,7 @@ struct DiaryScreen: View {
                         .clipShape(Capsule())
                 }
 
-                Text(selectedFilter == nil ? "Browse the latest moments from today." : "Filtered to \(selectedFilter?.rawValue ?? "") entries.")
+                Text(selectedFilter == nil ? "Browse the latest moments from today." : "Showing only \(selectedFilter?.rawValue ?? "") entries.")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             }

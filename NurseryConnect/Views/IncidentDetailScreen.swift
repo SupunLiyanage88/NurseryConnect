@@ -23,7 +23,7 @@ struct IncidentDetailScreen: View {
     
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 18) {
+            VStack(alignment: .leading, spacing: 16) {
                 heroCard
                 statusCard
 
@@ -84,7 +84,7 @@ struct IncidentDetailScreen: View {
 
                 VStack(alignment: .leading, spacing: 6) {
                     Text(incident.category.rawValue)
-                        .font(.headline)
+                        .font(.headline.weight(.semibold))
                     Text(incident.formattedDateTime)
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
@@ -106,7 +106,7 @@ struct IncidentDetailScreen: View {
 
                 VStack(alignment: .leading, spacing: 3) {
                     Text(isAcknowledged ? "Acknowledged" : "Awaiting acknowledgement")
-                        .font(.headline)
+                        .font(.headline.weight(.semibold))
                     Text(isAcknowledged ? "Recorded on \(incident.formattedAcknowledgedDate)" : "This report still needs parent review.")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)

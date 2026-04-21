@@ -2,7 +2,7 @@
 //  NurseryConnectRootView.swift
 //  NurseryConnect
 //
-//  Created by Copilot.
+//  Created by Supun Liyanage on 4/3/26.
 //
 
 import SwiftUI
@@ -36,6 +36,9 @@ struct NurseryConnectRootView: View {
                 Label("Incidents", systemImage: "exclamationmark.shield.fill")
             }
         }
+        .tint(Color("PrimaryTeal"))
+        .toolbarBackground(.ultraThinMaterial, for: .tabBar)
+        .toolbarBackground(.visible, for: .tabBar)
         .environmentObject(dataManager)
         .environmentObject(appState)
         .task {
