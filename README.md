@@ -9,7 +9,6 @@
 
 | Field | Details |
 |---|---|
-| **Student ID** | *IT22134776* |
 | **Student Name** | *L.S.B Hemarathne* |
 | **Chosen User Role** | *Parent* |
 | **Selected Feature 1** | *Daily Diary Viewing* |
