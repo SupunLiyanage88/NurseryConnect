@@ -75,8 +75,7 @@ struct DiaryScreen: View {
             loadEntries()
         }
         .onChange(of: selectedFilter) { _, _ in
-            // Refreshing is unnecessary because the filter is local state,
-            // but this keeps the view responsive when selection changes.
+            
         }
     }
     
